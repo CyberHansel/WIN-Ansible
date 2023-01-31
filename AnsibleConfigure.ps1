@@ -15,6 +15,18 @@ net localgroup administrators
 
 #Add user ansible with password ansible in domain "factory.local"
 
+# Import the Server Manager module
+Import-Module ServerManager
+
+# Add the Active Directory Domain Services role
+Add-WindowsFeature -Name AD-Domain-Services
+
+# Add the Remote Server Administration Tools feature
+Add-WindowsFeature -Name RSAT-AD-Tools
+
+# Restart the machine to complete the installation
+Restart-Computer
+
 $username = "ansible"
 $password = ConvertTo-SecureString "ansible" -AsPlainText -Force
 $domain = (Get-WmiObject -Class Win32_ComputerSystem).Domain
