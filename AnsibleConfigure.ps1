@@ -1,5 +1,7 @@
 #show extensions
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name HideFileExt -Value 0
+Get-Process explorer | Stop-Process
+Start-Process explorer
 
 #Add User for ansible and place it in administrators group
 $username = "ansible"
