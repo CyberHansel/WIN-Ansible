@@ -3,6 +3,22 @@ Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\
 Get-Process explorer | Stop-Process
 Start-Process explorer
 
+# Add user in domain
+Import-Module ActiveDirectory
+
+$username = "ansible"
+$password = ConvertTo-SecureString "ansible" -AsPlainText -Force
+$ou = "OU=00-Administration,OU=01-Employees,OU=00-Factory,DC=factory,DC=local"
+
+try {
+  New-ADUser -Name $username -AccountPassword $password -Enabled $true -Path $ou
+  Add-ADPrincipalGroupMembership -Identity $username -MemberOf "Administrators"
+  Write-Host "User $username created and added to the Administrators group successfully."
+} catch {
+  Write-Host "An error occurred while creating the user or adding the user to the Administrators group: $_"
+}
+
+
 #Add User for ansible and place it in administrators group
 $username = "ansible"
 $password = ConvertTo-SecureString "ansible" -AsPlainText -Force
