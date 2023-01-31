@@ -11,6 +11,19 @@ Add-LocalGroupMember -Group "Administrators" -Member $user
 
 net users
 net localgroup administrators
+# ---------------------------------------------
+
+#Add user ansible with password ansible in domain "factory.local"
+
+$username = "ansible"
+$password = ConvertTo-SecureString "ansible" -AsPlainText -Force
+$domain = (Get-WmiObject -Class Win32_ComputerSystem).Domain
+
+New-ADUser -Name $username -AccountPassword $password -Enabled $true -Path "DC=$domain"
+Add-ADPrincipalGroupMembership -Identity $username -MemberOf "Administrators"
+
+
+
 
 #=================================================================================================================
 #=================================================================================================================
