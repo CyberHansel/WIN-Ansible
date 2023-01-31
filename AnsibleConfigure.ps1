@@ -1,3 +1,6 @@
+#show extensions
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name HideFileExt -Value 0
+
 #Add User for ansible and place it in administrators group
 $username = "ansible"
 $password = ConvertTo-SecureString "ansible" -AsPlainText -Force
