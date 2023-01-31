@@ -133,6 +133,12 @@ python get-pip.py --user
 #Install ansible
 python -m pip install --user ansible
 
+#add sql server in domain
+
+netsh interface ip set dns "Ethernet" static 192.168.138.20 primary
+netsh interface show interface
+shutdown /r /t 30
+netdom join 192.168.138.40 /domain:factory.local /userd:Administrator /passwordd:Termiantor123
 
 
 
